@@ -1,0 +1,217 @@
+if game.PlaceId == 11177482306 then
+    -- Display Intro Message
+    print("Goat")
+
+    -- Load the latest OrionLib for the GUI
+    local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+    
+    -- Create a Window for the GUI
+    local Window = OrionLib:MakeWindow({
+        Name = "Cayos Hub for Street Wars 2",
+        HidePremium = false,
+        SaveConfig = true,
+        ConfigFolder = "OrionTest"
+    })
+
+    -- Initialize Global Values for toggles
+    _G.killall = false
+    _G.godmode = false
+    _G.autoPickup = false
+    _G.onePunch = false
+    _G.mopAutoFarm = false
+    _G.teleportToSpawn = false
+    _G.fly = false
+    _G.esp = false
+    _G.killAura = false
+    _G.flingAll = false
+    _G.cardAutoFarm = false
+    _G.autoCashOutCards = false
+    _G.autoBuyCards = false
+    _G.autoBuyLaptop = false
+    _G.autoEquipLaptop = false
+
+    -- Function to enable God Mode (keeps player's health at max)
+    function enableGodMode()
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+
+        -- Ensure the player has a Humanoid to check health
+        if character and character:FindFirstChild("Humanoid") then
+            character.Humanoid:GetPropertyChangedSignal("Health"):Connect(function()
+                if _G.godmode and character.Humanoid.Health < character.Humanoid.MaxHealth then
+                    -- Set health back to max if it falls below the max value
+                    character.Humanoid.Health = character.Humanoid.MaxHealth
+                end
+            end)
+        end
+    end
+
+    -- GUI Tabs and Settings
+    local trollTab = Window:MakeTab({
+        Name = "Troll",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+
+    -- Add Toggle for God Mode
+    trollTab:AddToggle({
+        Name = "Enable God Mode",
+        Default = false,
+        Callback = function(state)
+            _G.godmode = state
+            if state then
+                enableGodMode()
+            end
+        end
+    })
+
+    -- Add Button for 75 WalkSpeed
+    trollTab:AddButton({
+        Name = "75 WalkSpeed",
+        Callback = function()
+            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 75
+        end
+    })
+
+    -- Add Toggle for Infinite Ammo
+    trollTab:AddToggle({
+        Name = "Infinite Ammo",
+        Default = false,
+        Callback = function(state)
+            -- Implement Infinite Ammo logic here if necessary
+        end
+    })
+
+    -- Add Button for Fling All Players
+    trollTab:AddButton({
+        Name = "Fling All Players",
+        Callback = function()
+            for _, player in pairs(game.Players:GetChildren()) do
+                if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                    -- Fling the player
+                    local character = player.Character
+                    character.HumanoidRootPart.Velocity = Vector3.new(math.random(-500, 500), math.random(500, 1000), math.random(-500, 500))
+                end
+            end
+        end
+    })
+
+    -- Add Toggle for One Punch
+    trollTab:AddToggle({
+        Name = "Enable One Punch",
+        Default = false,
+        Callback = function(state)
+            _G.onePunch = state
+            if state then
+                -- Implement One Punch logic here
+            end
+        end
+    })
+
+    -- Add Toggle for Kill All
+    trollTab:AddToggle({
+        Name = "Enable Kill All",
+        Default = false,
+        Callback = function(state)
+            _G.killall = state
+            if state then
+                -- Implement Kill All logic here
+            end
+        end
+    })
+
+    -- Add Toggle for Name ESP
+    trollTab:AddToggle({
+        Name = "Enable Name ESP",
+        Default = false,
+        Callback = function(state)
+            _G.esp = state
+            if state then
+                -- Implement Name ESP logic here
+            end
+        end
+    })
+
+    -- GUI for Auto Farm
+    local autoFarmTab = Window:MakeTab({
+        Name = "Auto Farm",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+
+    -- Add Toggle for Mop Auto Farm
+    autoFarmTab:AddToggle({
+        Name = "Enable Mop Auto Farm",
+        Default = false,
+        Callback = function(state)
+            _G.mopAutoFarm = state
+            if state then
+                -- Implement Mop Auto Farm logic here
+            end
+        end
+    })
+
+    -- Add Toggle for Card Auto Farm
+    autoFarmTab:AddToggle({
+        Name = "Enable Card Auto Farm",
+        Default = false,
+        Callback = function(state)
+            _G.cardAutoFarm = state
+            if state then
+                -- Implement Card Auto Farm logic here
+            end
+        end
+    })
+
+    -- Add Toggle for Auto Cash Out Cards
+    autoFarmTab:AddToggle({
+        Name = "Enable Auto Cash Out Cards",
+        Default = false,
+        Callback = function(state)
+            _G.autoCashOutCards = state
+            if state then
+                -- Implement Auto Cash Out Cards logic here
+            end
+        end
+    })
+
+    -- Add Toggle for Auto Buy Cards
+    autoFarmTab:AddToggle({
+        Name = "Enable Auto Buy Cards",
+        Default = false,
+        Callback = function(state)
+            _G.autoBuyCards = state
+            if state then
+                -- Implement Auto Buy Cards logic here
+            end
+        end
+    })
+
+    -- Add Toggle for Auto Buy Laptop
+    autoFarmTab:AddToggle({
+        Name = "Enable Auto Buy Laptop",
+        Default = false,
+        Callback = function(state)
+            _G.autoBuyLaptop = state
+            if state then
+                -- Implement Auto Buy Laptop logic here
+            end
+        end
+    })
+
+    -- Add Toggle for Auto Equip Laptop
+    autoFarmTab:AddToggle({
+        Name = "Enable Auto Equip Laptop",
+        Default = false,
+        Callback = function(state)
+            _G.autoEquipLaptop = state
+            if state then
+                -- Implement Auto Equip Laptop logic here
+            end
+        end
+    })
+
+    -- Initialize the OrionLib GUI
+    OrionLib:Init()
+
+end
